@@ -7,7 +7,10 @@
     <a
       :href="href"
       @click="navigate"
-      :class="computedClass(isActive || isExactActive)"
+      :class="cn(
+        class,
+        (isActive || isExactActive) && activeClassName
+      )"
     >
       <slot />
     </a>
@@ -15,18 +18,29 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
 import { computed } from "vue";
+import { RouterLink, useLink } from "vue-router";
+import { cn } from "@/lib/utils";
 
 interface Props {
   to: string;
   class?: string;
   activeClassName?: string;
+  pendingClassName?: string;
 }
 
 const props = defineProps<Props>();
 
-function computedClass(isActive: boolean) {
-  return [props.class, isActive && props.activeClassName];
-}
+// useLink fornece estado equivalente ao isActive/isPending do React Router
+const link = useLink({
+  to: props.to,
+});
+
+const classes = computed(() =>
+  cn(
+    props.class,
+    link.isActive.value && props.activeClassName,
+    link.isExactActive.value && props.activeClassName,
+  ),
+);
 </script>

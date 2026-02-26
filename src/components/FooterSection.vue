@@ -1,29 +1,27 @@
 <template>
-  <footer class="bg-foreground text-background/70 py-12">
-    <div class="container mx-auto px-6 lg:px-25">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="font-display text-xl text-background">
-          <LogoComponent />
-        </div>
+  <footer class="py-12 bg-card border-t border-border">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="font-heading text-2xl italic text-foreground mb-2">
+        Flávio & Gabriella
+      </h3>
 
-        <div class="font-body text-sm grid md:flex items-center gap-1">
-          <p class="justify-self-center">
-            Feito com <Heart class="w-3.5 h-3.5 text-primary inline" />
-          </p>
-          <p>© {{ currentYear }} Gabriella Alves Felix Silva</p>
-        </div>
+      <p class="text-muted-foreground font-body text-sm mb-4">
+        20 de Dezembro de 2025
+      </p>
 
-        <p class="font-body text-sm text-background/50">
-          Psicóloga — CRP 09/21105
-        </p>
+      <div
+        class="flex items-center justify-center gap-1 text-muted-foreground text-xs font-body"
+      >
+        <span>Feito com</span>
+
+        <Heart class="w-3 h-3 fill-secondary text-secondary" />
+
+        <span>para o nosso grande dia</span>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { Heart } from "lucide-vue-next";
-import LogoComponent from "@/components/LogoComponent.vue";
-
-const currentYear = new Date().getFullYear();
 </script>

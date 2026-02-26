@@ -15,6 +15,12 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       host: "localhost",
       port: 5173
+    },
+    proxy: {
+      '/api': {
+        target: 'http://backend:3000',
+        changeOrigin: true,
+      }
     }
   },
   plugins: [vue(), tailwindcss(), mode === "development" && componentTagger()].filter(Boolean),
