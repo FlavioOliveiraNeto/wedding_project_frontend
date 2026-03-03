@@ -26,11 +26,11 @@
     <div class="container mx-auto px-4">
       <!-- Header -->
       <div class="text-center mb-12">
-        <p
+        <!--<p
           class="text-sm tracking-[0.3em] uppercase text-muted-foreground font-body mb-3"
         >
           Confirme sua presença
-        </p>
+        </p>-->
 
         <h2 class="font-heading text-4xl md:text-5xl text-foreground italic">
           Lista de Presença
@@ -41,8 +41,16 @@
         </div>
       </div>
 
-      <form @submit="handleSubmit" class="max-w-md mx-auto space-y-5">
-        <!-- Nome -->
+      <div class="text-center">
+        <p
+          class="text-sm tracking-[0.3em] uppercase text-muted-foreground font-body mb-3"
+        >
+          Será enviado um link para o Whatsapp para que você possa confirmar sua
+          presença.
+        </p>
+      </div>
+
+      <!--<form @submit="handleSubmit" class="max-w-md mx-auto space-y-5">
         <div class="space-y-2">
           <Label for="name" class="font-body text-sm tracking-wide">
             Nome completo *
@@ -55,7 +63,6 @@
           />
         </div>
 
-        <!-- Número de acompanhantes -->
         <div class="space-y-2">
           <Label for="guests" class="font-body text-sm tracking-wide">
             Número de acompanhantes *
@@ -70,8 +77,6 @@
             class="bg-background"
           />
         </div>
-
-        <!-- Nomes dos acompanhantes -->
         <div
           v-for="(name, index) in guestNames"
           :key="index"
@@ -92,8 +97,6 @@
             class="bg-background"
           />
         </div>
-
-        <!-- Mensagem -->
         <div class="space-y-2">
           <Label for="message" class="font-body text-sm tracking-wide">
             Mensagem para o casal
@@ -115,7 +118,7 @@
         >
           {{ loading ? 'Enviando...' : 'Confirmar Presença' }}
         </Button>
-      </form>
+      </form>-->
     </div>
   </section>
 </template>
@@ -160,7 +163,10 @@ const handleSubmit = async (e: Event) => {
   e.preventDefault();
 
   if (!formData.name.trim()) {
-    toast({ title: "Por favor, preencha seu nome completo.", variant: "destructive" });
+    toast({
+      title: "Por favor, preencha seu nome completo.",
+      variant: "destructive",
+    });
     return;
   }
 
@@ -196,17 +202,24 @@ const handleSubmit = async (e: Event) => {
     const data = await response.json();
 
     if (!response.ok) {
-      toast({ title: data.error || "Erro ao confirmar presença.", variant: "destructive" });
+      toast({
+        title: data.error || "Erro ao confirmar presença.",
+        variant: "destructive",
+      });
       return;
     }
 
     submitted.value = true;
     toast({
       title: "Presença confirmada! 🎉",
-      description: "Obrigado por confirmar, estamos ansiosos para celebrar com você!",
+      description:
+        "Obrigado por confirmar, estamos ansiosos para celebrar com você!",
     });
   } catch {
-    toast({ title: "Erro de conexão. Tente novamente.", variant: "destructive" });
+    toast({
+      title: "Erro de conexão. Tente novamente.",
+      variant: "destructive",
+    });
   } finally {
     loading.value = false;
   }

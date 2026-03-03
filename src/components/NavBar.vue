@@ -60,8 +60,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Início", href: "#home" },
   { label: "Nossa História", href: "#historia" },
-  { label: "Confirmação", href: "#presenca" },
-  { label: "Presentes", href: "#presentes" },
+  //{ label: "Nossas Fotinhas", href: "#fotos" },
+  //{ label: "Lista de Presença", href: "#presenca" },
+  { label: "Lista de Presentes", href: "#presentes" },
 ];
 
 const open = ref(false);

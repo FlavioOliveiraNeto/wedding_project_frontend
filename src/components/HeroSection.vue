@@ -5,11 +5,11 @@
   >
     <!-- Background image -->
     <div class="absolute inset-0">
-      <!--<img
+      <img
         :src="heroImage"
         alt="Flores do casamento"
-        class="w-full h-full object-cover"
-      />-->
+        class="w-full h-full object-cover object-[center_70%]"
+      />
       <div class="absolute inset-0 bg-foreground/40" />
     </div>
 
@@ -34,12 +34,15 @@
       <p
         class="text-lg md:text-xl text-primary-foreground/90 font-body font-light tracking-wide mb-10"
       >
-        20 de Dezembro de 2025 · 16h
+        04 de Abril de 2026 · 12h
       </p>
 
       <!-- Countdown -->
-      <div v-if="weddingHappened" class="text-primary-foreground/90 font-heading text-2xl md:text-3xl italic">
-        O grande dia chegou! ♥
+      <div
+        v-if="weddingHappened"
+        class="text-primary-foreground/90 font-heading text-2xl md:text-3xl italic"
+      >
+        O grande dia chegou!
       </div>
 
       <div v-else class="flex justify-center gap-4 md:gap-8">
@@ -67,7 +70,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
-//import heroImage from "@/assets/hero-wedding.jpg";
+import heroImage from "@/assets/images/teste_1.jpeg";
 
 interface TimeLeft {
   dias: number;
@@ -77,7 +80,7 @@ interface TimeLeft {
 }
 
 const calculateTimeLeft = (): TimeLeft => {
-  const weddingDate = new Date("2025-12-20T16:00:00");
+  const weddingDate = new Date("2026-04-04T12:00:00");
   const now = new Date();
   const diff = weddingDate.getTime() - now.getTime();
 
@@ -93,7 +96,9 @@ const calculateTimeLeft = (): TimeLeft => {
   };
 };
 
-const weddingHappened = computed(() => new Date() >= new Date("2025-12-20T16:00:00"));
+const weddingHappened = computed(
+  () => new Date() >= new Date("2026-04-04T12:00:00"),
+);
 
 const timeLeft = ref<TimeLeft>(calculateTimeLeft());
 

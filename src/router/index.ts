@@ -6,12 +6,18 @@ import {
 
 import HomeView from "../views/HomeView.vue";
 import NotFound from "../views/NotFound.vue";
+import RsvpView from "../views/RsvpView.vue";
 
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/rsvp/:token",
+    name: "rsvp",
+    component: RsvpView,
   },
   {
     path: "/:pathMatch(.*)*",

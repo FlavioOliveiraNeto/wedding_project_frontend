@@ -35,57 +35,112 @@
         Não foi possível carregar a lista de presentes.
       </div>
 
-      <!-- GRID -->
-      <div
-        v-else
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-5xl mx-auto"
-      >
-        <div
-          v-for="gift in gifts"
-          :key="gift.id"
-          :class="[
-            'rounded-lg border p-5 text-center transition-all duration-300',
-            gift.selected
-              ? 'bg-muted/50 border-border opacity-60'
-              : 'bg-card border-border hover:border-accent/50 hover:shadow-md',
-          ]"
-        >
-          <h3 class="font-heading text-base text-foreground mb-1">
-            {{ gift.name }}
-          </h3>
+      <template v-else>
+        <!-- FILTROS DE CATEGORIA -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8">
+          <button
+            @click="activeCategory = null"
+            :class="[
+              'px-4 py-1.5 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200',
+              activeCategory === null
+                ? 'bg-accent text-white shadow-sm'
+                : 'bg-muted text-muted-foreground hover:bg-muted/70',
+            ]"
+          >
+            Todos
+          </button>
 
-          <p v-if="gift.value" class="text-accent font-body text-sm font-medium mb-1">
-            R$ {{ formatValue(gift.value) }}
-          </p>
-
-          <p v-if="gift.description" class="text-muted-foreground font-body text-xs mb-4 leading-relaxed">
-            {{ gift.description }}
-          </p>
-
-          <div v-else class="mb-4" />
-
-          <template v-if="gift.selected">
-            <span
-              class="inline-flex items-center gap-1 text-xs text-muted-foreground font-body"
-            >
-              <Heart class="w-3 h-3 fill-secondary text-secondary" />
-              Escolhido por {{ gift.selected_by }}
-            </span>
-          </template>
-
-          <template v-else>
-            <Button
-              variant="outline"
-              size="sm"
-              @click="selectedGift = gift"
-              class="font-body text-xs tracking-wider uppercase"
-            >
-              <Gift class="w-3 h-3 mr-1" />
-              Quero presentear
-            </Button>
-          </template>
+          <button
+            v-for="cat in availableCategories"
+            :key="cat.value"
+            @click="activeCategory = cat.value"
+            :class="[
+              'px-4 py-1.5 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200',
+              activeCategory === cat.value
+                ? 'bg-accent text-white shadow-sm'
+                : 'bg-muted text-muted-foreground hover:bg-muted/70',
+            ]"
+          >
+            {{ cat.label }}
+          </button>
         </div>
-      </div>
+
+        <!-- CONTADOR -->
+        <p class="text-center text-xs text-muted-foreground font-body mb-6">
+          {{ filteredGifts.length }}
+          {{ filteredGifts.length === 1 ? "presente" : "presentes" }}
+          <template v-if="activeCategory">na categoria <strong>{{ activeCategoryLabel }}</strong></template>
+        </p>
+
+        <!-- GRID -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-5xl mx-auto"
+        >
+          <div
+            v-for="gift in filteredGifts"
+            :key="gift.id"
+            :class="[
+              'rounded-lg border p-5 text-center transition-all duration-300 flex flex-col',
+              gift.selected
+                ? 'bg-muted/50 border-border opacity-60'
+                : 'bg-card border-border hover:border-accent/50 hover:shadow-md',
+            ]"
+          >
+            <!-- Badge de categoria -->
+            <span
+              class="inline-block self-center mb-3 px-2.5 py-0.5 rounded-full text-[10px] font-body tracking-widest uppercase"
+              :class="categoryBadgeClass(gift.category)"
+            >
+              {{ gift.category_label }}
+            </span>
+
+            <h3 class="font-heading text-base text-foreground mb-1">
+              {{ gift.name }}
+            </h3>
+
+            <p v-if="gift.value" class="text-accent font-body text-sm font-medium mb-1">
+              R$ {{ formatValue(gift.value) }}
+            </p>
+
+            <p v-if="gift.description" class="text-muted-foreground font-body text-xs mb-4 leading-relaxed">
+              {{ gift.description }}
+            </p>
+
+            <div v-else class="mb-4" />
+
+            <div class="mt-auto">
+              <template v-if="gift.selected">
+                <span
+                  class="inline-flex items-center gap-1 text-xs text-muted-foreground font-body"
+                >
+                  <Heart class="w-3 h-3 fill-secondary text-secondary" />
+                  Escolhido por {{ gift.selected_by }}
+                </span>
+              </template>
+
+              <template v-else>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  @click="selectedGift = gift"
+                  class="font-body text-xs tracking-wider uppercase"
+                >
+                  <GiftIcon class="w-3 h-3 mr-1" />
+                  Quero presentear
+                </Button>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAZIO -->
+        <p
+          v-if="filteredGifts.length === 0"
+          class="text-center text-muted-foreground font-body text-sm py-8"
+        >
+          Nenhum presente nesta categoria.
+        </p>
+      </template>
     </div>
 
     <!-- DIALOG -->
@@ -135,7 +190,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { Gift, Heart } from "lucide-vue-next";
+import { Gift as GiftIcon, Heart } from "lucide-vue-next";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -157,9 +212,24 @@ interface GiftItem {
   name: string;
   description: string | null;
   value: number | null;
+  category: string;
+  category_label: string;
   selected: boolean;
   selected_by: string | null;
 }
+
+// Mapeamento de cores por categoria
+const CATEGORY_COLORS: Record<string, string> = {
+  quarto:     "bg-blue-100 text-blue-700",
+  cozinha:    "bg-orange-100 text-orange-700",
+  sala:       "bg-purple-100 text-purple-700",
+  banheiro:   "bg-cyan-100 text-cyan-700",
+  jardim:     "bg-green-100 text-green-700",
+  escritorio: "bg-yellow-100 text-yellow-700",
+  decoracao:  "bg-pink-100 text-pink-700",
+  eletronico: "bg-indigo-100 text-indigo-700",
+  outro:      "bg-muted text-muted-foreground",
+};
 
 const gifts = ref<GiftItem[]>([]);
 const loading = ref(true);
@@ -167,8 +237,34 @@ const loadError = ref(false);
 const selectedGift = ref<GiftItem | null>(null);
 const giverName = ref("");
 const confirming = ref(false);
+const activeCategory = ref<string | null>(null);
 
 const isDialogOpen = computed(() => !!selectedGift.value);
+
+// Categorias presentes na lista atual, em ordem de aparecimento
+const availableCategories = computed(() => {
+  const seen = new Map<string, string>();
+  for (const gift of gifts.value) {
+    if (!seen.has(gift.category)) {
+      seen.set(gift.category, gift.category_label);
+    }
+  }
+  return Array.from(seen.entries()).map(([value, label]) => ({ value, label }));
+});
+
+const filteredGifts = computed(() =>
+  activeCategory.value
+    ? gifts.value.filter((g) => g.category === activeCategory.value)
+    : gifts.value
+);
+
+const activeCategoryLabel = computed(() => {
+  if (!activeCategory.value) return "";
+  return availableCategories.value.find((c) => c.value === activeCategory.value)?.label ?? "";
+});
+
+const categoryBadgeClass = (category: string) =>
+  CATEGORY_COLORS[category] ?? CATEGORY_COLORS["outro"];
 
 const formatValue = (value: number | null) => {
   if (value === null) return "";

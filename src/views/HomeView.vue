@@ -3,7 +3,7 @@
     <Navbar />
     <HeroSection />
     <OurStorySection />
-    <PhotoGallerySection />
+    <!--<PhotoGallerySection />-->
     <RSVPSection />
     <GiftRegistrySection />
     <FooterSection />
@@ -14,7 +14,7 @@
 import Navbar from "@/components/NavBar.vue";
 import HeroSection from "@/components/HeroSection.vue";
 import OurStorySection from "@/components/OurStorySection.vue";
-import PhotoGallerySection from "@/components/PhotoGallerySection.vue";
+//import PhotoGallerySection from "@/components/PhotoGallerySection.vue";
 import RSVPSection from "@/components/RSVPSection.vue";
 import GiftRegistrySection from "@/components/GiftRegistrySection.vue";
 import FooterSection from "@/components/FooterSection.vue";

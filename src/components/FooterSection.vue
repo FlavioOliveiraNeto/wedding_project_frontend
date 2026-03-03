@@ -6,7 +6,7 @@
       </h3>
 
       <p class="text-muted-foreground font-body text-sm mb-4">
-        20 de Dezembro de 2025
+        04 de Abril de 2026
       </p>
 
       <div

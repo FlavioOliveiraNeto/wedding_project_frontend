@@ -1,5 +1,5 @@
 <template>
-  <section id="galeria" class="py-20 md:py-32 bg-background">
+  <section id="fotos" class="py-20 md:py-32 bg-background">
     <div class="container mx-auto px-4">
       <!-- Header -->
       <div class="text-center mb-12">
