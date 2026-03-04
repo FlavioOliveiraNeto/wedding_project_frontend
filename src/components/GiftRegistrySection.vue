@@ -26,12 +26,18 @@
       </div>
 
       <!-- LOADING -->
-      <div v-if="loading" class="text-center py-12 text-muted-foreground font-body">
+      <div
+        v-if="loading"
+        class="text-center py-12 text-muted-foreground font-body"
+      >
         Carregando presentes...
       </div>
 
       <!-- ERROR -->
-      <div v-else-if="loadError" class="text-center py-12 text-muted-foreground font-body">
+      <div
+        v-else-if="loadError"
+        class="text-center py-12 text-muted-foreground font-body"
+      >
         Não foi possível carregar a lista de presentes.
       </div>
 
@@ -98,7 +104,10 @@
               {{ gift.name }}
             </h3>
 
-            <p v-if="gift.description" class="text-muted-foreground font-body text-xs mb-4 leading-relaxed">
+            <p
+              v-if="gift.description"
+              class="text-muted-foreground font-body text-sm mb-4 leading-relaxed"
+            >
               {{ gift.description }}
             </p>
 
@@ -107,7 +116,7 @@
             <div class="mt-auto">
               <template v-if="gift.sold_out">
                 <span
-                  class="inline-flex items-center gap-1 text-xs text-muted-foreground font-body"
+                  class="inline-flex items-center gap-1 text-sm text-muted-foreground font-body"
                 >
                   <Heart class="w-3 h-3 fill-secondary text-secondary" />
                   <template v-if="gift.quantity === 1">
@@ -122,9 +131,11 @@
               <template v-else>
                 <p
                   v-if="gift.quantity > 1"
-                  class="text-xs text-muted-foreground font-body mb-2"
+                  class="text-sm text-muted-foreground font-body mb-2"
                 >
-                  <span class="font-medium text-accent">{{ gift.remaining }}</span>
+                  <span class="font-medium text-accent">{{
+                    gift.remaining
+                  }}</span>
                   de {{ gift.quantity }} disponíveis
                 </p>
 
@@ -132,7 +143,7 @@
                   variant="outline"
                   size="sm"
                   @click="selectedGift = gift"
-                  class="font-body text-xs tracking-wider uppercase"
+                  class="font-body text-sm tracking-wider uppercase"
                 >
                   <GiftIcon class="w-3 h-3 mr-1" />
                   Quero presentear
@@ -151,11 +162,14 @@
         </p>
 
         <!-- PAGINAÇÃO -->
-        <div v-if="totalPages > 1" class="flex justify-center items-center gap-2 mt-10">
+        <div
+          v-if="totalPages > 1"
+          class="flex justify-center items-center gap-1 md:gap-2 mt-10"
+        >
           <button
             @click="currentPage--"
             :disabled="currentPage === 1"
-            class="px-4 py-1.5 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200 bg-muted text-muted-foreground hover:bg-muted/70 disabled:opacity-40 disabled:cursor-not-allowed"
+            class="px-2 py-1.5 md:px-4 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200 bg-muted text-muted-foreground hover:bg-muted/70 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             ← Anterior
           </button>
@@ -177,7 +191,7 @@
           <button
             @click="currentPage++"
             :disabled="currentPage === totalPages"
-            class="px-4 py-1.5 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200 bg-muted text-muted-foreground hover:bg-muted/70 disabled:opacity-40 disabled:cursor-not-allowed"
+            class="px-2 py-1.5 md:px-4 rounded-full text-xs font-body tracking-wider uppercase transition-all duration-200 bg-muted text-muted-foreground hover:bg-muted/70 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Próxima →
           </button>
@@ -189,19 +203,21 @@
     <Dialog :open="isDialogOpen" @update:open="(val) => !val && closeDialog()">
       <DialogContent class="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle class="font-heading text-xl italic text-foreground">
+          <DialogTitle
+            class="font-heading text-2xl italic text-foreground text-center mb-2"
+          >
             Presentear o casal
           </DialogTitle>
 
-          <DialogDescription class="font-body text-muted-foreground">
+          <DialogDescription class="text-md font-body text-muted-foreground">
             Você escolheu
-            <strong class="text-foreground">{{ selectedGift?.name }}</strong>.
-            Pesquise seu nome na lista de convidados para confirmar.
+            <strong class="text-foreground">{{ selectedGift?.name }}</strong
+            >. Pesquise seu nome na lista de convidados para confirmar.
           </DialogDescription>
         </DialogHeader>
 
         <div class="space-y-4 pt-2">
-          <div class="space-y-2">
+          <div class="flex flex-col space-y-2">
             <Label class="font-body text-lg tracking-wide">
               Quem vai presentear?*
             </Label>
@@ -223,14 +239,23 @@
 
               <!-- Dropdown de resultados -->
               <div
-                v-if="dropdownOpen && (filteredResults.length > 0 || searchLoading || noResults)"
+                v-if="
+                  dropdownOpen &&
+                  (filteredResults.length > 0 || searchLoading || noResults)
+                "
                 class="absolute z-50 w-full mt-1 bg-popover border border-border rounded-md shadow-md overflow-hidden"
               >
-                <div v-if="searchLoading" class="px-3 py-2 text-sm text-muted-foreground font-body">
+                <div
+                  v-if="searchLoading"
+                  class="px-3 py-2 text-sm text-muted-foreground font-body"
+                >
                   Buscando...
                 </div>
 
-                <div v-else-if="noResults" class="px-3 py-2 text-sm text-muted-foreground font-body">
+                <div
+                  v-else-if="noResults"
+                  class="px-3 py-2 text-sm text-muted-foreground font-body"
+                >
                   Nenhum convidado encontrado.
                 </div>
 
@@ -254,7 +279,10 @@
             </div>
 
             <!-- Tags dos convidados já adicionados -->
-            <div v-if="selectedGuests.length > 0" class="flex flex-wrap gap-1.5 mb-1">
+            <div
+              v-if="selectedGuests.length > 0"
+              class="flex flex-wrap gap-1.5 mb-1"
+            >
               <span
                 v-for="guest in selectedGuests"
                 :key="guest.id"
@@ -279,7 +307,7 @@
             :disabled="confirming || selectedGuests.length === 0"
             class="w-full font-body tracking-widest uppercase text-lg py-5"
           >
-            {{ confirming ? 'Confirmando...' : 'Confirmar presente' }}
+            {{ confirming ? "Confirmando..." : "Confirmar presente" }}
           </Button>
         </div>
       </DialogContent>
@@ -325,15 +353,15 @@ interface GuestResult {
 
 // Mapeamento de cores por categoria
 const CATEGORY_COLORS: Record<string, string> = {
-  quarto:     "bg-blue-100 text-blue-700",
-  cozinha:    "bg-orange-100 text-orange-700",
-  sala:       "bg-purple-100 text-purple-700",
-  banheiro:   "bg-cyan-100 text-cyan-700",
-  jardim:     "bg-green-100 text-green-700",
+  quarto: "bg-blue-100 text-blue-700",
+  cozinha: "bg-orange-100 text-orange-700",
+  sala: "bg-purple-100 text-purple-700",
+  banheiro: "bg-cyan-100 text-cyan-700",
+  jardim: "bg-green-100 text-green-700",
   escritorio: "bg-yellow-100 text-yellow-700",
-  decoracao:  "bg-pink-100 text-pink-700",
+  decoracao: "bg-pink-100 text-pink-700",
   eletronico: "bg-indigo-100 text-indigo-700",
-  outro:      "bg-muted text-muted-foreground",
+  outro: "bg-muted text-muted-foreground",
 };
 
 const gifts = ref<GiftItem[]>([]);
@@ -379,21 +407,28 @@ const currentPage = ref(1);
 const filteredGifts = computed(() =>
   activeCategory.value
     ? gifts.value.filter((g) => g.category === activeCategory.value)
-    : gifts.value
+    : gifts.value,
 );
 
-const totalPages = computed(() => Math.ceil(filteredGifts.value.length / PAGE_SIZE));
+const totalPages = computed(() =>
+  Math.ceil(filteredGifts.value.length / PAGE_SIZE),
+);
 
 const paginatedGifts = computed(() => {
   const start = (currentPage.value - 1) * PAGE_SIZE;
   return filteredGifts.value.slice(start, start + PAGE_SIZE);
 });
 
-watch(activeCategory, () => { currentPage.value = 1; });
+watch(activeCategory, () => {
+  currentPage.value = 1;
+});
 
 const activeCategoryLabel = computed(() => {
   if (!activeCategory.value) return "";
-  return availableCategories.value.find((c) => c.value === activeCategory.value)?.label ?? "";
+  return (
+    availableCategories.value.find((c) => c.value === activeCategory.value)
+      ?.label ?? ""
+  );
 });
 
 const categoryBadgeClass = (category: string) =>
@@ -453,7 +488,9 @@ const searchGuests = async () => {
   searchLoading.value = true;
   dropdownOpen.value = true;
   try {
-    const response = await fetch(`/api/v1/guests/search?q=${encodeURIComponent(searchQuery.value.trim())}`);
+    const response = await fetch(
+      `/api/v1/guests/search?q=${encodeURIComponent(searchQuery.value.trim())}`,
+    );
     const data: GuestResult[] = await response.json();
     searchResults.value = data;
     noResults.value = data.length === 0;
@@ -489,7 +526,7 @@ const moveFocus = (direction: number) => {
   if (!dropdownOpen.value || filteredResults.value.length === 0) return;
   focusedIndex.value = Math.max(
     0,
-    Math.min(filteredResults.value.length - 1, focusedIndex.value + direction)
+    Math.min(filteredResults.value.length - 1, focusedIndex.value + direction),
   );
 };
 
@@ -501,23 +538,34 @@ const selectFocused = () => {
 
 const handleConfirm = async () => {
   if (selectedGuests.value.length === 0 || !selectedGift.value) {
-    toast({ title: "Por favor, selecione ao menos um nome da lista.", variant: "destructive" });
+    toast({
+      title: "Por favor, selecione ao menos um nome da lista.",
+      variant: "destructive",
+    });
     return;
   }
 
   confirming.value = true;
 
   try {
-    const response = await fetch(`/api/v1/gifts/${selectedGift.value.id}/select`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ gift_selection: { guest_ids: selectedGuests.value.map((g) => g.id) } }),
-    });
+    const response = await fetch(
+      `/api/v1/gifts/${selectedGift.value.id}/select`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          gift_selection: { guest_ids: selectedGuests.value.map((g) => g.id) },
+        }),
+      },
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
-      toast({ title: data.error || "Erro ao confirmar presente.", variant: "destructive" });
+      toast({
+        title: data.error || "Erro ao confirmar presente.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -530,7 +578,10 @@ const handleConfirm = async () => {
     await fetchGifts();
     closeDialog();
   } catch {
-    toast({ title: "Erro de conexão. Tente novamente.", variant: "destructive" });
+    toast({
+      title: "Erro de conexão. Tente novamente.",
+      variant: "destructive",
+    });
   } finally {
     confirming.value = false;
   }
