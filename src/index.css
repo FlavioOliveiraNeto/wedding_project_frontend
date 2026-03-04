@@ -3,9 +3,6 @@
 @plugin "tailwindcss-animate";
 @import "tailwindcss";
 
-/* =========================
-   THEME TOKENS (Tailwind v4)
-========================= */
 
 @theme {
   /* Font families */
@@ -59,10 +56,6 @@
   --color-sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
-/* =========================
-   DARK MODE
-========================= */
-
 .dark {
   --color-background: hsl(30 10% 10%);
   --color-foreground: hsl(40 33% 97%);
@@ -90,10 +83,6 @@
   --color-ring: hsl(142 25% 50%);
 }
 
-/* =========================
-   BASE STYLES
-========================= */
-
 @layer base {
   * {
     @apply border-border;
@@ -111,10 +100,6 @@
     cursor: pointer;
   }
 }
-
-/* =========================
-   UTILITIES
-========================= */
 
 @layer utilities {
   .text-gradient-gold {

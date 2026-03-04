@@ -215,9 +215,7 @@
                 class="text-muted-foreground font-body text-sm mt-1 leading-relaxed"
               >
                 Obrigado por nos avisar. Será uma pena não ter
-                {{
-                  guestData.companions.length > 0 ? "vocês" : "você"
-                }}
+                {{ guestData.companions.length > 0 ? "vocês" : "você" }}
                 conosco, mas entendemos. ♥
               </p>
             </div>
@@ -399,8 +397,6 @@ const { toast } = useToast();
 
 const token = computed(() => route.params.token as string);
 
-// ── Tipos ──────────────────────────────────────────────────────────────────────
-
 interface Companion {
   id: number;
   full_name: string;
@@ -415,8 +411,6 @@ interface GuestData {
 }
 
 type ResolvedStatus = "confirmed" | "declined" | "partial" | null;
-
-// ── Busca do convidado via token ───────────────────────────────────────────────
 
 const fetchGuest = async (): Promise<GuestData> => {
   const response = await fetch(`/api/v1/rsvp/${token.value}`);
@@ -434,17 +428,13 @@ const {
   retry: false,
 });
 
-// ── Estado local ───────────────────────────────────────────────────────────────
-
 const localStatus = ref<ResolvedStatus>(null);
 const submitting = ref(false);
 const pendingAction = ref<"confirmed" | "declined" | null>(null);
 
-// Seleção parcial
 const showPartialSelection = ref(false);
 const declinedCompanionIds = ref<Set<number>>(new Set());
 
-// Nomes para exibição no resultado parcial
 const localConfirmedNames = ref<string[]>([]);
 const localDeclinedNames = ref<string[]>([]);
 
@@ -455,7 +445,6 @@ const resolvedStatus = computed((): ResolvedStatus => {
   return gs as ResolvedStatus;
 });
 
-// Nomes confirmados/recusados (para exibição após resposta)
 const confirmedNames = computed((): string[] => {
   if (localStatus.value === "partial") return localConfirmedNames.value;
   if (!guestData.value || guestData.value.group_status !== "partial") return [];
@@ -478,8 +467,6 @@ const declinedNames = computed((): string[] => {
     .map((m) => m.full_name);
 });
 
-// ── Seleção parcial ────────────────────────────────────────────────────────────
-
 const enterPartialSelection = () => {
   declinedCompanionIds.value = new Set();
   showPartialSelection.value = true;
@@ -499,8 +486,6 @@ const toggleCompanion = (id: number, isChecked: boolean | "indeterminate") => {
   }
   declinedCompanionIds.value = next;
 };
-
-// ── Envio da resposta ──────────────────────────────────────────────────────────
 
 const submitRsvp = async (status: "confirmed" | "declined") => {
   submitting.value = true;
@@ -575,7 +560,6 @@ const submitPartial = async () => {
       return;
     }
 
-    // Calcula nomes confirmados/recusados para exibição
     localConfirmedNames.value = [
       guestData.value.full_name,
       ...allCompanions

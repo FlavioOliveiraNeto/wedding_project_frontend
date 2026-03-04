@@ -31,7 +31,6 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// useLink fornece estado equivalente ao isActive/isPending do React Router
 const link = useLink({
   to: props.to,
 });

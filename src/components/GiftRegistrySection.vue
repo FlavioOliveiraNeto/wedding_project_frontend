@@ -351,7 +351,6 @@ interface GuestResult {
   full_name: string;
 }
 
-// Mapeamento de cores por categoria
 const CATEGORY_COLORS: Record<string, string> = {
   quarto: "bg-blue-100 text-blue-700",
   cozinha: "bg-orange-100 text-orange-700",
@@ -371,7 +370,6 @@ const selectedGift = ref<GiftItem | null>(null);
 const confirming = ref(false);
 const activeCategory = ref<string | null>(null);
 
-// Combobox state
 const searchQuery = ref("");
 const searchResults = ref<GuestResult[]>([]);
 const selectedGuests = ref<GuestResult[]>([]);
@@ -382,7 +380,6 @@ const noResults = ref(false);
 const comboboxRef = ref<HTMLElement | null>(null);
 let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
-// Exclui da lista de resultados quem já foi adicionado
 const filteredResults = computed(() => {
   const ids = new Set(selectedGuests.value.map((g) => g.id));
   return searchResults.value.filter((g) => !ids.has(g.id));
@@ -390,7 +387,6 @@ const filteredResults = computed(() => {
 
 const isDialogOpen = computed(() => !!selectedGift.value);
 
-// Categorias presentes na lista atual, em ordem de aparecimento
 const availableCategories = computed(() => {
   const seen = new Map<string, string>();
   for (const gift of gifts.value) {

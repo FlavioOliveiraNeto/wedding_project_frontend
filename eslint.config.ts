@@ -6,8 +6,6 @@ import vueParser from "vue-eslint-parser";
 
 export default tseslint.config(
   { ignores: ["dist"] },
-
-  // Config para arquivos Vue
   {
     files: ["**/*.vue"],
     languageOptions: {
@@ -26,8 +24,6 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
-
-  // Config para arquivos TS normais
   {
     files: ["**/*.ts"],
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
@@ -36,7 +32,5 @@ export default tseslint.config(
       globals: globals.browser,
     },
   },
-
-  // Config Vue recomendada
   ...vue.configs["flat/recommended"],
 );
