@@ -19,7 +19,7 @@
       </div>
 
       <!-- Timeline -->
-      <div class="max-w-2xl mx-auto relative">
+      <div class="mx-auto relative">
         <!-- Vertical line -->
         <div
           class="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px"
@@ -41,11 +41,11 @@
           <!-- Content -->
           <div
             :class="[
-              'ml-14 md:ml-0 md:w-1/2',
+              'ml-14 md:ml-0 md:w-[500px]',
               i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12',
             ]"
           >
-            <span class="text-accent font-heading text-lg">
+            <span class="text-accent font-heading text-3xl">
               {{ item.year }}
             </span>
 
@@ -53,9 +53,10 @@
               {{ item.title }}
             </h3>
 
-            <p class="text-muted-foreground font-body text-sm leading-relaxed">
-              {{ item.description }}
-            </p>
+            <p
+              class="text-muted-foreground font-body text-lg leading-relaxed"
+              v-html="item.description"
+            ></p>
           </div>
         </div>
 
@@ -79,34 +80,34 @@ interface TimelineItem {
 
 const timeline: TimelineItem[] = [
   {
-    year: "2018",
-    title: "O Primeiro Encontro",
+    year: "2022",
+    title: "Como nos conhecemos:",
     description:
-      "Em um café aconchegante no centro da cidade, Flávio e Gabriella se encontraram pela primeira vez. O que seria um encontro rápido se transformou em horas de conversa e risadas.",
+      "Nossa história não começa em um café romântico, na verdade, em 2022 o Tinder foi nosso cupido. Demos coraçãozinhos um para o outro, e assim um Match. Gabriella diz que deu coraçãozinho porque gostou da última foto do Flávio com um cachorrinho e na bio estava escrito que gostava de pagode, já o Flavio diz que deu coraçãozinho porque apesar de fazer \"carão\" nas fotos, parecia ser gente boa, era bonita e na bio falava que gostava de pagode também. Começamos a conversar, mas perdemos o assunto depois de um tempo.",
   },
   {
-    year: "2019",
-    title: "Início do Namoro",
+    year: "2022",
+    title: "Primeiro encontro:",
     description:
-      "Depois de meses de amizade e encontros cada vez mais frequentes, Flávio tomou coragem e pediu Gabriella em namoro em um pôr do sol inesquecível.",
+      "Ainda naquele mesmo ano, no dia 1 de março, depois de exatamente um mês sem se falar, Flávio mandou mensagem chamando Gabriella para sair. Era 19:00 da noite, Gabriella achou que o convite era para outro dia, mas a intenção do Flávio era sair às 20:00. Gabriella ficou receosa, mas topou sair. O encontro foi muito engraçado, Flavio esqueceu o nome da Gabriella <strong>(nota do administrador: me envergonho profundamente!)</strong>, tirou o picles do sanduiche dela com a mão suja <strong>(nota 2 do administrador: não estava suja.)</strong> e conversaram sobre várias coisas sem nem observar que o tempo passou. No final do encontro, se despediram e para Gabriella ficou a impressão que o Flávio não tinha gostado, mas logo em seguida ele mandou mensagem agradecendo pelo encontro e querendo marcar outras vezes.",
   },
   {
-    year: "2021",
-    title: "Mudando Juntos",
+    year: "2022",
+    title: "Pedido de namoro:",
     description:
-      "Com a certeza de que eram feitos um para o outro, decidiram dividir o mesmo teto e construir juntos um lar cheio de amor e cumplicidade.",
-  },
-  {
-    year: "2024",
-    title: "O Pedido",
-    description:
-      "Em uma viagem especial, Flávio surpreendeu Gabriella com o pedido de casamento mais emocionante. Entre lágrimas de felicidade, ela disse SIM!",
+      "Começamos a nos encontrar toda vez que o Flávio tinha aula em Goiânia. Saímos 3 vezes e não teve nenhum beijo, mas teve muita risada e conexão <strong>(nota da administradora: reclamo muito da falta de beijo e o Flávio diz para não discutir os métodos dele, e sim os resultados)</strong>. Saímos por 4 meses, e sempre era muito divertido. Quando Junho chegou, Flávio começou a perguntar onde iriam no dia dos namorados, e Gabriella sempre respondia que em lugar nenhum, pois ninguém havia pedido em namoro. No dia 3 de Junho, Flávio chamou Gabriella para jantar e a buscou na faculdade. Enquanto Flávio cozinhava, Gabriella foi ao banheiro e ao voltar, Flávio estava com a caixinha do anel, pedindo em namoro. Foi fofo!!",
   },
   {
     year: "2025",
+    title: "Pedido de casamento:",
+    description:
+      "Depois de 3 anos e 5 meses de namoro, fizemos uma viagem para a Europa, muito especial em família. No dia 9 de Novembro, em um parque lindo de Londres, Flávio se ajoelhou e pediu Gabriella em casamento, muito nervoso com a caixinha de cabeça para baixo <strong>(nota do administrador: caixa com Design diferente que me levou ao erro kkkkkk)</strong>, o que virou risos seguinte do SIM!",
+  },
+  {
+    year: "2026",
     title: "O Grande Dia",
     description:
-      "Finalmente chegou o momento de celebrar nosso amor com todos que amamos. Estamos ansiosos para compartilhar essa data tão especial com vocês!",
+      "Não teremos uma cerimônia de casamento, mas organizamos um chá de panela para que todos que amamos possam comemorar e celebrar com a gente! Contamos com sua presença no dia em que comemoraremos nossa união e companheirismo!",
   },
 ];
 </script>

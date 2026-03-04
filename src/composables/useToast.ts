@@ -2,7 +2,8 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import type { Component } from "vue";
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_VISIBLE_DURATION = 6000; // quanto tempo fica visível
+const TOAST_REMOVE_DELAY = 300;      // delay após fechar (para animação de saída)
 
 type ToastVariant = "default" | "destructive";
 
@@ -13,6 +14,7 @@ interface ToasterToast {
   action?: Component;
   variant?: ToastVariant;
   open?: boolean;
+  duration?: number;
   onOpenChange?: (open: boolean) => void;
   class?: string;
 }
@@ -118,6 +120,7 @@ function toast({ ...props }: Toast) {
       ...props,
       id,
       open: true,
+      duration: TOAST_VISIBLE_DURATION,
       onOpenChange: (open) => {
         if (!open) dismiss();
       },
