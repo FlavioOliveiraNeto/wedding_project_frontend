@@ -43,10 +43,10 @@
 
       <div class="text-center">
         <p
-          class="text-sm tracking-[0.3em] uppercase text-muted-foreground font-body mb-3"
+          class="text-sm tracking-[0.3em] uppercase text-muted-foreground font-body mb-3 mx-[8rem]"
         >
           Será enviado um link para o Whatsapp para que você possa confirmar sua
-          presença.
+          presença. Se você não recebeu, nos avise! Confirme até dia 31 de Março. Sua presença é muito importante para nós!
         </p>
       </div>
 

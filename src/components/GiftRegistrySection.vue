@@ -104,6 +104,21 @@
               {{ gift.name }}
             </h3>
 
+            <a
+              v-if="getGiftImage(gift.name)"
+              :href="gift.purchase_url ?? undefined"
+              :target="gift.purchase_url ? '_blank' : undefined"
+              :rel="gift.purchase_url ? 'noopener noreferrer' : undefined"
+              class="block my-3"
+            >
+              <img
+                :src="getGiftImage(gift.name)!"
+                :alt="gift.name"
+                class="w-full h-36 object-contain rounded"
+              />
+            </a>
+            <div v-else class="mt-3" />
+
             <p
               v-if="gift.description"
               class="text-muted-foreground font-body text-sm mb-4 leading-relaxed"
@@ -334,6 +349,28 @@ import { useToast } from "@/composables/useToast";
 
 const { toast } = useToast();
 
+const giftImages = import.meta.glob(
+  "../assets/images/presentes/*.{jpg,jpeg,png,webp}",
+  { eager: true },
+) as Record<string, { default: string }>;
+
+const slugify = (str: string): string =>
+  str
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+
+const getGiftImage = (name: string): string | null => {
+  const slug = slugify(name);
+  for (const [path, mod] of Object.entries(giftImages)) {
+    const filename = slugify(path.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "");
+    if (filename === slug) return mod.default;
+  }
+  return null;
+};
+
 interface GiftItem {
   id: number;
   name: string;
@@ -344,6 +381,7 @@ interface GiftItem {
   remaining: number;
   sold_out: boolean;
   selected_by: string | null;
+  purchase_url: string | null;
 }
 
 interface GuestResult {
