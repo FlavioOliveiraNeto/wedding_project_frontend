@@ -186,7 +186,7 @@ const handleSubmit = async (e: Event) => {
   loading.value = true;
 
   try {
-    const response = await fetch("/api/v1/rsvp", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/rsvp`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

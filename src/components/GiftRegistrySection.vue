@@ -472,7 +472,7 @@ const fetchGifts = async () => {
   loading.value = true;
   loadError.value = false;
   try {
-    const response = await fetch("/api/v1/gifts");
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/gifts`);
     if (!response.ok) throw new Error("Erro ao buscar presentes");
     gifts.value = await response.json();
   } catch {
