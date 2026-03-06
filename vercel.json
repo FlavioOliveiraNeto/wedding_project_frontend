@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://api.flavioegabriela.com.br/api/:path*"
+      "destination": "https://api.flavioegabriella.com.br/api/:path*"
     },
     {
       "source": "/(.*)",
