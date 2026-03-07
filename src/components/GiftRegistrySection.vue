@@ -104,6 +104,8 @@
               {{ gift.name }}
             </h3>
 
+            <span class="text-sm text-gray-500">Clique na imagem abaixo para abrir o link</span>
+
             <a
               v-if="getGiftImage(gift.name)"
               :href="gift.purchase_url ?? undefined"
